@@ -1,0 +1,632 @@
+{% extends 'tb/base.html' %}
+
+{% block content %}
+
+
+
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js" async></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+   		$( ".json_preview" ).hide();
+   		$( ".headwrap" ).hide();
+   		$( ".reqwrap").hide();
+   		$( ".stepwrap").hide();
+   		$(".substepwrap").hide();
+   		$(".codewrap").hide();
+   		$(".imagewrap").hide();
+
+   		$(".hideall_link").hide();
+
+   		
+
+   		$(".hideall_link").click(function(){
+   		$( ".json_preview" ).hide();
+   		$( ".headwrap" ).hide();
+   		$( ".reqwrap").hide();
+   		$( ".stepwrap").hide();
+   		$( ".substepwrap").hide();
+   		$(".codewrap").hide();
+   		$(".imagewrap").hide();
+
+   		$(".headwrap_link").show();
+   		$(".reqwrap_link").show();
+   		$(".stepwrap_link").show();
+   		$(".substepwrap_link").show();
+   		$(".codewrap_link").show();
+   		$(".imagewrap_link").show();
+
+   		$(".hideall_link").hide();
+
+
+   		});
+   		
+   		
+   		$(".html_preview_link").click(function(){
+    		$(".html_preview").show();
+    		$(".json_preview").hide();
+
+		});
+		
+		$(".json_preview_link").click(function(){
+    		$(".html_preview").hide();
+    		$(".json_preview").show();
+
+		});
+
+   		$(".headwrap_link").click(function(){
+    		$(".headwrap").toggle('show');
+    		$(".headwrap_link").hide();
+    		$(".hideall_link").show();
+
+		});
+
+   		$(".reqwrap_link").click(function(){
+    		$(".reqwrap").toggle('show');
+    		$(".reqwrap_link").hide();
+    		$(".hideall_link").show();
+
+		});
+		$(".stepwrap_link").click(function(){
+    		$(".stepwrap").toggle('show');
+    		$(".stepwrap_link").hide();
+    		$(".hideall_link").show();
+
+		});
+
+		$(".substepwrap_link").click(function(){
+    		$(".substepwrap").toggle('show');
+    		$(".substepwrap_link").hide();
+    		$(".hideall_link").show();
+
+		});
+		$(".codewrap_link").click(function(){
+    		$(".codewrap").toggle('show');
+    		$(".codewrap_link").hide();
+    		$(".hideall_link").show();
+
+		});
+
+		$(".imagewrap_link").click(function(){
+    		$(".imagewrap").toggle('show');
+    		$(".imagewrap_link").hide();
+    		$(".hideall_link").show();
+
+		});
+
+
+   	   });
+
+
+
+
+
+	
+
+   
+</script>
+
+
+<style type="text/css">
+p, .description_before, .description_after {
+      word-wrap: break-word;
+    } 
+
+.content-left, .content-right {
+
+	border: 1px dashed black;
+
+}
+.content-left, .content-right {
+	padding: 15px;
+}
+
+</style>
+
+
+{% if message %}
+	<div class = "container">
+		<br><br>
+	<div class="alert alert-warning" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">Info:</span>  {{message}}
+	
+	</div>
+	</div>
+{% endif %}
+
+
+
+<div class = "container">
+	<div class="page-header">
+  		<h1>Modify Tutorial <small> {{tutorial_name}}</small></h1>
+	</div>
+	<h4> Click on the links below to modify parts of the form</h4>
+	<div class = "col-lg-10 col-md-10 col-sm-10 col-xs-11">
+		<br>
+		<a  class= "btn btn-warning " href="/tb/live/">View Live Tutorial</a>
+		<br>
+		<h5> Public Link to live tutorial: <a href="/tb/{{publinkName}}/">/tb/{{publinkName}}/</a></h5>
+		
+		<br>
+
+
+		<br>
+		<a  class= "btn btn-primary hideall_link
+			" href="#">Click to hide forms</a>
+	<br>
+	<br>
+
+
+	</div>
+
+
+
+</div>
+
+
+
+
+
+<div class = "container jumbotron">
+	
+	<div class = "row">
+		<div class="col-md-6 col-lg-6 col-sm-8">
+
+			<h3><a class= "btn btn-info headwrap_link" href="#"> Change Title/Header</a></h3>
+
+			<div class="headwrap">
+				<form class="form-text form content-left" method = "post" action = "/tb/change_title/"> {% csrf_token %}
+					   {% if addtitleForm.errors %}
+			
+							<div class="alert alert-warning" role="alert">
+							 
+							   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  {{addtitleForm.errors}
+							</div>
+
+						{% endif %}
+
+					 <label> Change the Title </label> <br>
+					 {{addtitleForm.title}}
+					 <br>
+
+
+					 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Change Title</button>
+				</form>
+				<hr>
+
+
+				<form class="form-text form content-right" method = "post" action = "/tb/change_header/"> {% csrf_token %}
+					   {% if addheaderForm.errors %}
+			
+							<div class="alert alert-warning" role="alert">
+							 
+							   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  {{addheaderForm.errors}}
+							</div>
+
+						{% endif %}
+
+					 <label> Change the Header Description of your tutorial </label> <br>
+					 {{addheaderForm.header}}
+					 <br>
+
+					 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Change Header</button>
+				</form>
+				<hr>
+			</div>
+		</div>
+
+
+
+		<div class="col-md-6 col-lg-6 col-sm-8">
+	
+			<h3><a class= "btn btn-info reqwrap_link" href="#"> Change Requirements</a></h3>
+
+				<div class= "reqwrap">
+						<form class="form-text form content-right" method = "post" action = "/tb/change_requirement/"> {% csrf_token %}
+						{% if addrequirementForm.errors %}
+					
+									<div class="alert alert-warning" role="alert">
+									 
+									   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+									  {{addrequirementForm.errors}}
+									</div>
+
+								{% endif %}
+							<h4>Add a Requirement</h4>
+							 <label> Add a requirement</label> <br>
+							 {{addrequirementForm.requirement}}
+							 <br>
+							 <label> Add click url (Optional)</label> <br>
+							 {{addrequirementForm.link}}
+							 <br>
+							 <label> Appears at </label> <br>
+
+							 {{addrequirementForm.index}}
+							 <label>th(st) position</label>
+							 <br><br>
+
+							 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Add a Requirement</button>
+
+						</form>
+
+						{% if  deleterequirementForm.choices %}
+						<form class="form-text form content-right" method = "post" action = "/tb/delete_requirement/"> {% csrf_token %}
+							   {% if deleterequirementForm.errors %}
+						
+									<div class="alert alert-warning" role="alert">
+									 
+									   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+									  {{deleterequirementForm.errors}}
+									</div>
+
+								{% endif %}
+							 <label> Delete a requirement</label> <br>
+							 {{deleterequirementForm.choices}}
+
+							<br>
+
+							 <button class="btn btn-md btn-danger" id = "submit_login" type="submit">Delete Requirement</button>
+						</form>
+						{% endif %}
+
+				</div>
+		</div>
+	</div>  <!-- END OF ROW -->
+
+
+	<div class="row">
+
+
+		<div class="col-md-6 col-lg-6 col-sm-8">
+
+			<h3><a class= "btn btn-info stepwrap_link" href="#"> Change Steps</a></h3>
+			<div class = "stepwrap">
+
+			<form class="form-text form content-right" method = "post" action = "/tb/add_step/"> {% csrf_token %}
+				   {% if addstepForm.errors %}
+		
+						<div class="alert alert-warning" role="alert">
+						 
+						   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						  {{addstepForm.errors}}
+						</div>
+
+					{% endif %}
+				<h4>Add a Step</h4>
+				 <label> Step Title: </label> <br>
+				 {{addstepForm.title}}
+				 <br>
+				 <label> Add Begining Text: (Optional)</label> <br>
+				 {{addstepForm.description_before}}
+				 <br>
+				 <label> Add Ending Text: (Optional)</label> <br>
+
+				 {{addstepForm.description_after}}
+
+				 <br>
+				  <label> Appears at </label> <br>
+
+				 {{addstepForm.index}}
+				 <label>th(st) position</label>
+				 <br><br>
+
+
+				 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Add Step</button>
+			</form>
+
+
+			{% if  deletestepForm.choices %}
+				<form class="form-text form content-right" method = "post" action = "/tb/delete_step/"> {% csrf_token %}
+					   {% if deletestepForm.errors %}
+			
+							<div class="alert alert-warning" role="alert">
+							 
+							   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  {{deletestepForm.errors}}
+							</div>
+
+						{% endif %}
+					 <label> Delete a step</label> <br>
+					 {{deletestepForm.choices}}
+
+					<br>
+
+					 <button class="btn btn-md btn-danger" id = "submit_login" type="submit">Delete Step</button>
+				</form>
+
+
+				{% endif %}
+
+
+
+
+				</div>
+
+	
+			</div>
+
+ 
+
+
+
+
+		<div class="col-md-6 col-lg-6 col-sm-8">
+
+		{% if addsubstepForm.valid %}
+			<h3><a class= "btn btn-info substepwrap_link" href="#"> Change Sub Steps</a></h3>
+				<div class = "substepwrap">
+						
+
+					<form class="form-text form content-right" method = "post" action = "/tb/add_substep/"> {% csrf_token %}
+						   {% if addsubstepForm.errors %}
+				
+								<div class="alert alert-warning" role="alert">
+								 
+								   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								  {{addsubstepForm.errors}}
+								</div>
+
+							{% endif %}
+						<h4>Add a Sub Step</h4>
+
+
+						  <label> Step:  </label> <br>
+
+						 {{addsubstepForm.steps}}
+						 <label>Substep text": </label>
+						  {{addsubstepForm.description}}
+						 <br><br>
+
+
+						 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Add Sub Step</button>
+					</form>
+
+				
+
+				{% endif %}
+
+				{% if deletesubstepForm.valid %}
+
+
+					<form class="form-text form content-right" method = "post" action = "/tb/delete_substep/"> {% csrf_token %}
+						   {% if deletesubstepForm.errors %}
+				
+								<div class="alert alert-warning" role="alert">
+								 
+								   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								  {{deletesubstepForm.errors}}
+								</div>
+
+							{% endif %}
+						<h4>Delete a Sub Step</h4>
+
+
+						  <label> Delete Step:  </label> <br>
+						  <label> Step | Sub Step</label>
+
+						 {{deletesubstepForm.steps}}
+	
+						 <br><br>
+
+
+						 <button class="btn btn-md btn-danger" id = "submit_login" type="submit">Delete Sub Step</button>
+					</form>
+
+			{% endif %}
+			</div>
+	
+				
+		</div>
+	
+
+
+
+	</div> <!-- END OF ROW -->
+
+
+	<div class = "row">
+		<div class="col-md-6 col-lg-6 col-sm-8">
+		
+		{% if addcodeexampleForm.valid %}
+		
+
+
+			<h3><a class= "btn btn-info codewrap_link" href="#"> Change Code</a></h3>
+
+			<div class = "codewrap">
+
+
+
+			<form class="form-text form content-right" method = "post" action = "/tb/add_code/"> {% csrf_token %}
+				   {% if addcodeexampleForm.errors %}
+		
+						<div class="alert alert-warning" role="alert">
+						 
+						   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						  {{addcodeexampleForm.errors}}
+						</div>
+
+					{% endif %}
+
+				<h4>Add Code Example</h4>
+				 <label>Add to step: </label>
+				 {{addcodeexampleForm.steps}}
+				 <br>
+				 <label> Code Description: </label> <br>
+				 {{addcodeexampleForm.code_description}}
+				 <br>
+				 <label> Language Type: </label> <br>
+				 <a href="#" class= "codeinput">{{addcodeexampleForm.code_type}}</a>
+				 <br>
+				 <label> Code:</label> <br>
+				 <pre class = "lang-bsh">
+				 {{addcodeexampleForm.code_lines}}
+				 </pre>
+
+				  
+				 <br><br>
+
+
+					 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Add Code</button>
+				</form>
+		{% endif %}
+
+
+		{% if  deletecodeForm.valid %}
+				<form class="form-text form content-right" method = "post" action = "/tb/delete_code/"> {% csrf_token %}
+					   {% if deletecodeForm.errors %}
+				
+							<div class="alert alert-warning" role="alert">
+							 
+							   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  {{deletecodeForm.errors}}
+							</div>
+
+						{% endif %}
+					 <label> Delete code</label> 
+					 <label>Step | Code Description</label><br>
+					 {{deletecodeForm.steps}}
+
+					<br>
+
+					 <button class="btn btn-md btn-danger" id = "submit_login" type="submit">Delete Code</button>
+				</form>
+
+
+		{% endif %}
+
+
+			</div>
+	
+		
+
+
+
+
+			</div>
+
+		<div class="col-md-6 col-lg-6 col-sm-8">
+			{% if addimageForm.valid %}
+			<h3><a class= "btn btn-info imagewrap_link" href="#"> Change Images</a></h3>
+
+			<div class = "imagewrap">
+
+				<form class="form-text form content-right" method = "post" action = "/tb/add_image/"> {% csrf_token %}
+				   {% if addimageForm.errors %}
+		
+						<div class="alert alert-warning" role="alert">
+						 
+						   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						  {{addimageForm.errors}}
+						</div>
+
+					{% endif %}
+
+				<h4>Add Image Example</h4>
+				 <label>Add to step: </label>
+				 {{addimageForm.steps}}
+				 <br>
+				 <label> Image Description: </label> <br>
+				 {{addimageForm.image_description}}
+				 <br>
+				 <label> Image (URL): </label> <br>
+				 {{addimageForm.image_link}}
+				 <br>
+				 
+				  
+				 <br><br>
+
+
+					 <button class="btn btn-md btn-success" id = "submit_login" type="submit">Add Image</button>
+				</form>
+			{% endif %}
+
+
+			{% if  deleteimageForm.valid %}
+				<form class="form-text form content-right" method = "post" action = "/tb/delete_image/"> {% csrf_token %}
+					   {% if deleteimageForm.errors %}
+				
+							<div class="alert alert-warning" role="alert">
+							 
+							   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  {{deletecodeForm.errors}}
+							</div>
+
+						{% endif %}
+					 <label> Delete Image</label> 
+					 <label>Step | Image Description</label><br>
+					 {{deleteimageForm.steps}}
+
+					<br>
+
+					 <button class="btn btn-md btn-danger" id = "submit_login" type="submit">Delete Image</button>
+				</form>
+
+
+		{% endif %}
+
+
+
+		</div>
+
+		</div>
+
+
+		
+
+		</div>
+		
+
+
+
+
+</div>
+
+
+
+
+<hr>
+
+<div class = "html_preview">
+	<div class=  "container">
+	<h3>Preview HTML | <a class= "json_preview_link" href="#"> Preview JSON</a></h3>
+
+
+	<hr>
+	</div>
+
+
+
+
+	{{html_data | safe}}
+
+
+</div>
+
+<div class = "json_preview">
+	<div class = "container">
+	<h3>Preview JSON | <a class= "html_preview_link" href="#"> Preview HTML</a></h3>
+
+	 <pre style = "font-size:10px;" class="prettyprint linenums lang-json code_type code_lines">
+	 	{{json_data | safe}}
+
+	 </pre>
+
+
+	<hr>
+	</div>
+
+
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,158 @@
+{% extends 'tb/base.html' %}
+
+{% block content %}
+
+
+
+{% if register_flag %}
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+   		$( ".join" ).hide();
+   		$(".join_link").click(function(){
+    		$(".login").hide();
+    		$(".join").show();
+		});
+		$(".login_link").click(function(){
+    		$(".join").hide();
+    		$(".login").show();
+		});
+	});
+	
+   
+</script>
+{% else %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+   		$( ".join" ).hide();
+   		$(".join_link").click(function(){
+    		$(".login").hide();
+    		$(".join").show();
+		});
+		$(".login_link").click(function(){
+    		$(".join").hide();
+    		$(".login").show();
+		});
+	});
+	
+   
+</script>
+
+{% endif %} 
+
+
+<style type="text/css">
+
+.example{
+	width:100%;
+	height:700px;
+}
+</style>
+
+
+
+{% if message %}
+	<div class = "container">
+	<div class="alert alert-info" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">Info:</span>
+	  {{message}}
+	</div>
+</div>
+{% endif %}
+
+
+
+
+<div class = "container join">
+	<div class="page-header">
+  		<h3>Create Tutorial <a class= "login_link" href="#"> Modify existing tutorial</a></h3>
+	</div>
+	<div class = "col-lg-5 col-md-6 col-sm-8 col-xs-11">
+
+		<form class="form-text" method = "post" action = "/"> {% csrf_token %}
+			   {% if form.errors %}
+	
+					<div class="alert alert-warning" role="alert">
+					 
+					   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					  {{form.errors}}
+					</div>
+
+				{% endif %}
+
+			 <label> Create a Tutorial: </label>
+			 {{form.name}}
+			 <br>
+			 <label> Create a password to edit the tutorial: </label>
+			 {{form.password}}
+			 <label> Reenter a password to edit the tutorial: </label>
+			 {{form.password2}}
+
+			 <br>
+
+			 {{form.captcha}}
+			 <br>
+			 <button class="btn btn-md btn-primary" id = "submit_login" type="submit">Create</button>
+		</form>
+
+</div>
+</div>
+
+
+<div class = "container login">
+
+	<div class="page-header">
+  		<h3>Modify Tutorial | <a class= "join_link" href="#"> Create New Tutorial</a></h3>
+
+	</div>
+	<div class = "col-lg-5 col-md-6 col-sm-8 col-xs-11">
+
+		<form class="form-text" method = "post" action = "/tb/login_request/"> {% csrf_token %}
+			   {% if loginform.errors %}
+	
+					<div class="alert alert-warning" role="alert">
+					 
+					   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					  {{loginform.errors}}
+					</div>
+
+				{% endif %}
+
+			 <label> Tutorial Name: </label>
+			 {{loginform.name}}
+			 <br>
+			 <label> Password: </label>
+			 {{loginform.password}}
+
+			 <br>
+
+			 {{loginform.captcha}}
+			 <br>
+			 <button class="btn btn-md btn-primary" id = "submit_login" type="submit">Modify</button>
+		</form>
+
+</div>
+</div>
+
+<div class ="container">
+
+  		<h3 style = "color:red;">Example Tutorial: </h3>
+
+
+  		<iframe class = "example" src="/tb/SampleTutorial/"></iframe>
+
+
+
+</div>
+
+
+				
+				
+
+{% endblock %}
+
+
+
